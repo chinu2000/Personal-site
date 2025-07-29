@@ -7,7 +7,7 @@ import ProjectGallery from "./components/ProjectGallery";
 import GalleryModal from "./components/GalleryModal";
 import ContactSection from "./components/Contact";
 
-import categories from "./data/projectData"; // Your 3D, Graphics, Motion projects list
+import categories from "./data/projectData.jsx"; // Your 3D, Graphics, Motion projects list
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
