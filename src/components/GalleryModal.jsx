@@ -22,7 +22,7 @@ export default function GalleryModal({ open, onClose, title, items }) {
         >
           <div className="flex justify-between items-center w-full max-w-6xl mb-8">
             <h2 className="text-4xl font-extrabold text-white tracking-tight">{title}</h2>
-            <button onClick={onClose} className="text-white p-2 hover:text-gray-400">
+            <button onClick={onClose} className="text-black p-2 hover:text-gray-400">
               <X size={32} />
             </button>
           </div>
