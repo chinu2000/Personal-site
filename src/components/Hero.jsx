@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import profilePic from "../assets/chinnaimg.jpg";
-import blenderLogo from "../assets/blender.png";       // downloaded image
+import blenderLogo from "../assets/Blender.png";       // downloaded image
 import aeLogo from "../assets/AE.svg";     // downloaded image
 
 export default function Hero() {
