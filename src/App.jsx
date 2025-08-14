@@ -11,7 +11,15 @@ import categories from "./data/projectData"; // Your 3D, Graphics, Motion projec
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalItems, setModalItems] = useState([]);
+  const [modalTitle, setModalTitle] = useState("");
+
+  const openGallery = (category) => {
+    setModalItems(category.items || []);
+    setModalTitle(category.title || "");
+    setModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white">
@@ -20,7 +28,11 @@ export default function App() {
       {!selectedCategory ? (
         <ShowcaseSections
           categories={categories}
-          onCategoryClick={setSelectedCategory}
+          onCategoryClick={(cat) => {
+            setSelectedCategory(cat);
+            // Instead of navigating away, open modal directly
+            openGallery(cat);
+          }}
         />
       ) : (
         <div className="mt-10">
@@ -37,14 +49,19 @@ export default function App() {
           <ProjectGallery
             title={selectedCategory.title}
             projects={selectedCategory.items}
-            onItemClick={setSelectedItem}
+            onItemClick={() => openGallery(selectedCategory)}
           />
         </div>
       )}
 
       <AnimatePresence>
-        {selectedItem && (
-          <GalleryModal item={selectedItem} onClose={() => setSelectedItem(null)} />
+        {modalOpen && (
+          <GalleryModal
+            open={modalOpen}
+            onClose={() => setModalOpen(false)}
+            title={modalTitle}
+            items={modalItems}
+          />
         )}
       </AnimatePresence>
 

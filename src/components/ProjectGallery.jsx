@@ -6,6 +6,16 @@ import { ChevronDown, ChevronRight } from 'lucide-react';
 export default function ProjectGallery({ title, items }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const isImage = (url) =>
+    /\.(jpeg|jpg|gif|png|webp|svg)$/i.test(url) || url.includes("thumbnail?id=");
+
+  const getDriveDirectLink = (url) => {
+    const match = url.match(/\/d\/(.*?)\//);
+    return match
+      ? `https://drive.google.com/uc?export=download&id=${match[1]}`
+      : url;
+  };
+
   return (
     <section className="my-8 px-4">
       <button
@@ -24,24 +34,41 @@ export default function ProjectGallery({ title, items }) {
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3 }}
         >
-          {items.map((item, index) => (
-            <a
-              key={index}
-              href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-gray-900 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300"
-            >
-              <img
-                src={item.image || item.preview}
-                alt={item.title || item.name}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-3 text-center font-medium">
-                {item.title || item.name}
-              </div>
-            </a>
-          ))}
+          {items.map((item, index) => {
+            const link = getDriveDirectLink(item.link);
+
+            return (
+              <a
+                key={index}
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gray-900 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300"
+              >
+                <div className="w-full h-48 bg-black">
+                  {isImage(link) ? (
+                    <img
+                      src={link}
+                      alt={item.title || item.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <video
+                      src={link}
+                      className="w-full h-full object-cover"
+                      muted
+                      loop
+                      autoPlay
+                      playsInline
+                    />
+                  )}
+                </div>
+                <div className="p-3 text-center font-medium">
+                  {item.title || item.name}
+                </div>
+              </a>
+            );
+          })}
         </motion.div>
       )}
     </section>
