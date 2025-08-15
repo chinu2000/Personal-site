@@ -40,7 +40,7 @@ export default function GalleryModal({ open, onClose, title, items }) {
           {/* Header (Sticky) */}
           <div className="flex justify-between items-center w-full max-w-6xl mb-4 sticky top-0 bg-black bg-opacity-95 z-10 p-2">
             <h2 className="text-4xl font-extrabold text-white tracking-tight">{title}</h2>
-            <button onClick={onClose} className="text-white p-2 hover:text-gray-400 transition-colors">
+            <button onClick={onClose} className="text-black bg-white p-2 hover:text-gray-400 transition-colors">
               <X size={32} />
             </button>
           </div>
